@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -27,12 +28,14 @@ import com.github.mdjc.youmeal.domain.Meal;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-public class MealRestControllerIntegrationTests extends RestControllerTest {
+public class MealRestControllerIntegrationTest extends RestControllerTest {
 	@Autowired
 	private DataSource dataSource;
+	private JdbcTemplate jdbcTemplate;
 
 	@Before
 	public void setUp() throws Exception {
+		jdbcTemplate = new JdbcTemplate(dataSource);
 		buildWebContext();
 		resetDatabase();
 	}
@@ -75,7 +78,7 @@ public class MealRestControllerIntegrationTests extends RestControllerTest {
 	}
 
 	private void resetDatabase() {
-		DBUtils.clearTable(dataSource, "meals");
+		jdbcTemplate.update("delete from meals");
 	}
 
 	private List<Meal> loadMeals() {
@@ -86,7 +89,7 @@ public class MealRestControllerIntegrationTests extends RestControllerTest {
 		meals.add(Meal.of(mealId++, "Sea-food soup", false, true, false));
 		meals.add(Meal.of(mealId++, "milk chocolate and toasts", true, false, false));
 		meals.add(Meal.of(mealId++, "3 Hits: salami-eggs-cheese and mangu", true, false, false));
-		meals.forEach(m -> DBUtils.insert(dataSource, "meals", asArray(m)));
+		meals.forEach(m -> DBUtils.insert(jdbcTemplate, "meals", asArray(m)));
 		return meals;
 	}
 
