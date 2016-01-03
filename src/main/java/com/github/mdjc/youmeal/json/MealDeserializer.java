@@ -13,6 +13,6 @@ public class MealDeserializer extends SimpleDeserializer<Meal> {
 		boolean breakfast = tree.get("breakfast").asBoolean();
 		boolean lunch = tree.get("lunch").asBoolean();
 		boolean dinner = tree.get("dinner").asBoolean();
-		return new Meal(id, description, breakfast, lunch, dinner);
+		return Meal.of(id, description, breakfast, lunch, dinner);
 	}
 }

@@ -5,9 +5,8 @@
 	<form ng-submit="vm.submit()">
 	  <div class="form-group">
 	    <label for="meal">Meal</label>
-	    <input type="text" class="form-control" placeholder="Type the meal you've eaten" ng-model="vm.meal.description" required>
+	    <input type="text" class="form-control" placeholder="Type in a meal" ng-model="vm.meal.description" required>
 	  </div>
-	  
 	  <div class="form-group">
 	  	<label class="checkbox-inline">
 	    	<input type="checkbox" value="" ng-model="vm.meal.breakfast">
@@ -21,8 +20,7 @@
 	    	<input type="checkbox" value="" ng-model="vm.meal.dinner">
 	    	Dinner
 	  	</label>
-	  </div>
-	  
+	  </div>	  
 	  <button type="submit" class="btn btn-lg btn-primary">Add</button>
 	</form>
 </div>

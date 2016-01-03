@@ -5,9 +5,9 @@
 		.module('youMealApp')
 		.controller('AddMealController', Controller);
 	
-	Controller.$inject = ['$filter','meal'];
+	Controller.$inject = ['mealService'];
 	
-	function Controller($filter, meal) {
+	function Controller(mealService) {
 		var vm = this;
 		vm.submit = add;
 		
@@ -20,11 +20,11 @@
 		    
 		function add() {
 			console.log(vm.meal);
-			meal.add(vm.meal).error(errorCallBack).success(successCallback);
+			mealService.add(vm.meal).error(errorCallBack).success(successCallback);
 		}
 		
 		function errorCallBack(data, status, headers, config) {
-			vm.alert = new common.alerts.ErrorBuilder().build(status, "Unexpected error");
+			vm.alert = common.alerts.error("Unexpected error");
 		}
 		
 		function successCallback(data, status, headers, config) {

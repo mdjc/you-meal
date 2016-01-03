@@ -4,10 +4,9 @@ var common;
 	var alerts;
 	
 	(function(alerts) {		
-		alerts.ErrorBuilder = ErrorBuilder;
+		alerts.ErrorSelector = ErrorSelector;
 		alerts.info = info;
 		alerts.error = error;
-		
 		
 		function info(message) {
 			return {type: 'info', message: message};
@@ -17,13 +16,14 @@ var common;
 			return {type: 'danger', message: message};
 		}
 		
-		function ErrorBuilder() {		
+		function ErrorSelector() {		
 			var messages = {};
+			var defaultMessage = "unexpected error";
 			
 			this.build = build;
 			this.when = when;
 
-			function build(status, defaultMessage) {
+			function select(status) {
 				var message = messages[status];
 				
 				if (!message) {
@@ -36,7 +36,12 @@ var common;
 			function when(status, message) {
 				messages[status] = message;
 				return this;
-			}						
+			}
+			
+			function defaultMsg(message) {
+				defaultMessage = message;
+				return this;
+			}	
 		}	
 		
 	})(alerts = common.alerts || (common.alerts = {}));

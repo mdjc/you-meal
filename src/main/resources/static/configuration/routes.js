@@ -9,7 +9,8 @@
 	
 	function config($routeProvider) {
 		$routeProvider
-			.when('/add', route('AddMealController', 'add-meal.html'));
+			.when('/add', route('AddMealController', 'add-meal.html'))
+			.when('/suggestions', route('MealSuggestionsController', 'meal-suggestions.html'));
 	}	
 		
 	function route(controller, template) {
