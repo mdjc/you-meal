@@ -20,7 +20,7 @@ var common;
 			var messages = {};
 			var defaultMessage = "unexpected error";
 			
-			this.build = build;
+			this.select = select;
 			this.when = when;
 
 			function select(status) {

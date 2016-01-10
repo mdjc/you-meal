@@ -5,12 +5,11 @@
 		.module('youMealApp')
 		.controller('AddMealController', Controller);
 	
-	Controller.$inject = ['mealService'];
+	Controller.$inject = ['mealService', '$location'];
 	
-	function Controller(mealService) {
+	function Controller(mealService, $location) {
 		var vm = this;
-		vm.submit = add;
-		
+		vm.submit = add;		
 		activate();	
 		
 	    function activate() {				
@@ -19,7 +18,6 @@
 	    }
 		    
 		function add() {
-			console.log(vm.meal);
 			mealService.add(vm.meal).error(errorCallBack).success(successCallback);
 		}
 		
@@ -28,7 +26,7 @@
 		}
 		
 		function successCallback(data, status, headers, config) {
-	    	vm.alert = common.alerts.info("Your meal has been created!");
+	    	$location.path("/suggestions");
 	    } 
 	}
 })();

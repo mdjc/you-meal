@@ -7,26 +7,34 @@
 	    
 		<title>YouMeal</title>
 		<link rel="stylesheet" href="webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/main.css">
 	</head>
 	
 	<body class="ng-cloak">		
-		<div class="container">
-			<div class="jumbotron">
-				<h1 class="text-center">YouMeal</h1>
-				<div ng-view></div>
-			</div>
+		<div  ng-include="'assets/navigation/nav.html'"></div>
+
+		<div class="container-fluid main-container">			
+			<div ng-view></div>
 		</div>
+
 		
 		<script src="webjars/jquery/2.1.4/jquery.js"></script>
 		<script src="webjars/bootstrap/3.3.6/js/bootstrap.js"></script>
 		<script src="webjars/angularjs/1.4.8/angular.js"></script>
 		<script src="webjars/angularjs/1.4.8/angular-route.js"></script>
-		<script src="common/alerts.js"></script>
-		<script src="domain/meal.js"></script>
-		<script src="app.js"></script>
-		<script src="configuration/routes.js"></script>
-		<script src="meal.service.js"></script>
-		<script src="add-meal.controller.js"></script>
-		<script src="meal-suggestions.controller.js"></script>
+		<script src="assets/common/alerts.js"></script>
+		<script src="assets/domain/meal.js"></script>
+		<script src="assets/domain/route.js"></script>
+		<script src="assets/app.js"></script>
+		<script src="assets/configuration/routes.js"></script>
+		<script src="assets/configuration/http.js"></script>
+		<script src="assets/root.controller.js"></script>
+		<script src="assets/navigation/nav.controller.js"></script>
+		<script src="assets/welcome.controller.js"></script>
+		<script src="assets/users/sign-in.controller.js"></script>
+		<script src="assets/users/authentication.service.js"></script>
+		<script src="assets/meals/meal.service.js"></script>
+		<script src="assets/meals/add-meal.controller.js"></script>
+		<script src="assets/meals/meal-suggestions.controller.js"></script>
 	</body>
 </html>

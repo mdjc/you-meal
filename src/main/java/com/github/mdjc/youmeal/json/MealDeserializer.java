@@ -1,7 +1,7 @@
 package com.github.mdjc.youmeal.json;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.mdjc.common.json.SimpleDeserializer;
+import com.github.mdjc.commons.json.SimpleDeserializer;
 import com.github.mdjc.youmeal.domain.Meal;
 
 public class MealDeserializer extends SimpleDeserializer<Meal> {

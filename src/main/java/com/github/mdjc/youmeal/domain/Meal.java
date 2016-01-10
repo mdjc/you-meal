@@ -1,6 +1,6 @@
 package com.github.mdjc.youmeal.domain;
 
-import static com.github.mdjc.common.args.Arguments.*;
+import static com.github.mdjc.commons.args.Arguments.*;
 
 public class Meal {
 	public static final Meal NULL = new Meal(0, "", false, false, false);

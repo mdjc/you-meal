@@ -1,0 +1,24 @@
+body {
+    font-family: "Whitney SSm A", "Whitney SSm B", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+.main-container {
+	padding: 0;
+	border: medium;
+	margin-left: 0;
+	margin-right: 0;	
+}
+
+.main-img {
+	min-width: 100%;
+}
+
+.brand-name {
+	font: normal normal bold 25px 'noticia text',serif;
+    color: #55;
+}
+
+.logged-user {
+	line-height: 29px;
+}

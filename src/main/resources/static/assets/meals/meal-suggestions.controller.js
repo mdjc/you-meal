@@ -12,7 +12,6 @@
 		vm.loadBreakfast = loadBreakfast;
 		vm.loadLunch = loadLunch;
 		vm.loadDinner = loadDinner;
-		
 		doLoad();
 		
 		function doLoad() {

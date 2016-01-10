@@ -1,0 +1,20 @@
+<nav class="navbar navbar-default main-navbar" ng-controller="NavigationController as vm">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainMenu">
+				<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand brand-name" href="#/welcome">YouMeal</a>
+		</div>
+	    <p class="navbar-text logged-user" ng-show="username">Signed in as {{username}}</p>
+		<ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="mainMenu">
+			<li><a href="#/signin" btn-auto-collapse ng-hide="username">Sign in</a></li>
+			<li><a href="#/suggestions" btn-auto-collapse ng-show="username">Suggestions</a></li>
+			<li><a href="#/add" btn-auto-collapse ng-show="username">Add Meal</a></li>
+			<li><a href="" btn-auto-collapse ng-show="username" ng-click="vm.signOut()">Sign out</a></li>
+		</ul>
+	</div>
+</nav>

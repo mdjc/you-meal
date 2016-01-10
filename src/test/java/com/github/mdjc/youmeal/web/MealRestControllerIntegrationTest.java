@@ -20,8 +20,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.github.mdjc.common.db.DBUtils;
-import com.github.mdjc.common.web.test.RestControllerTest;
+import com.github.mdjc.commons.db.DBUtils;
+import com.github.mdjc.commons.webapps.test.RestControllerTest;
 import com.github.mdjc.youmeal.Application;
 import com.github.mdjc.youmeal.domain.Meal;
 
