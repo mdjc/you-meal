@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.github.mdjc.youmeal.domain.MealRepository;
 import com.github.mdjc.youmeal.domain.User;
 import com.github.mdjc.youmeal.domain.UserRepository;
 
@@ -29,6 +30,8 @@ public class SqlUserRepository implements UserRepository {
 	}
 
 	private User mapper(ResultSet rs, int rowNum) throws SQLException {
-		return User.of(rs.getString("user_name"), rs.getString("user_email"), rs.getString("user_password"));
+		MealRepository mealRepository = new SqlMealRepository(jdbcTemplate.getDataSource());
+		return User.of(rs.getString("user_name"), rs.getString("user_email"), rs.getString("user_password"),
+				mealRepository);
 	}
 }

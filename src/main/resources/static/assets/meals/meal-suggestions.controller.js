@@ -5,9 +5,9 @@
 		.module('youMealApp')
 		.controller('MealSuggestionsController', Controller);
 	
-	Controller.$inject = ['mealService'];
+	Controller.$inject = ['$rootScope', 'mealService'];
 	
-	function Controller(mealService) {
+	function Controller($rootScope, mealService) {
 		var vm = this;
 		vm.loadBreakfast = loadBreakfast;
 		vm.loadLunch = loadLunch;
@@ -31,7 +31,7 @@
 		}
 		
 		function loadSuggestedMeal(category) {
-			mealService.getSuggestedMeal(category).error(errorCallBack).success(successCallBack);
+			mealService.getSuggestedMeal($rootScope.username, category).error(errorCallBack).success(successCallBack);
 		}
 		
 		function errorCallBack(data, status, headers, config) {

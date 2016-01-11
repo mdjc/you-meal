@@ -5,9 +5,9 @@
 		.module('youMealApp')
 		.controller('AddMealController', Controller);
 	
-	Controller.$inject = ['mealService', '$location'];
+	Controller.$inject = ['$rootScope', 'mealService', '$location'];
 	
-	function Controller(mealService, $location) {
+	function Controller($rootScope, mealService, $location) {
 		var vm = this;
 		vm.submit = add;		
 		activate();	
@@ -18,7 +18,7 @@
 	    }
 		    
 		function add() {
-			mealService.add(vm.meal).error(errorCallBack).success(successCallback);
+			mealService.add($rootScope.username, vm.meal).error(errorCallBack).success(successCallback);
 		}
 		
 		function errorCallBack(data, status, headers, config) {

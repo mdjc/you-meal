@@ -44,7 +44,7 @@ public class MealRestControllerIntegrationTest extends RestControllerTest {
 	public void add_shouldReturnTheAddedMeal() throws Exception {
 		Meal meal = Meal.of(0, "bonless chicken chicharron", false, true, true);
 		String mealAsJson = json(meal);
-		this.mockMvc.perform(post("/meals")
+		this.mockMvc.perform(post("/users/mirna/meals")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(mealAsJson))
 				.andExpect(status().isCreated())
@@ -57,7 +57,7 @@ public class MealRestControllerIntegrationTest extends RestControllerTest {
 	@Test
 	public void pickMeal_shouldReturnABreakfast() throws Exception {
 		List<Meal> breakfasts = loadMeals().stream().filter(m -> m.isBreakfast()).collect(Collectors.toList());
-		this.mockMvc.perform(get("/categories/breakfast/meals/suggestion"))
+		this.mockMvc.perform(get("/users/mirna/categories/breakfast/meals/suggestion"))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id", isIn(breakfasts.stream().map(m -> (int) m.getId()).toArray())))
@@ -67,7 +67,7 @@ public class MealRestControllerIntegrationTest extends RestControllerTest {
 
 	@Test
 	public void pickMeal_shouldReturnANullMeal() throws Exception {
-		this.mockMvc.perform(get("/categories/lunch/meals/suggestion"))
+		this.mockMvc.perform(get("/users/mirna/categories/lunch/meals/suggestion"))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id", is(0)))
@@ -89,18 +89,23 @@ public class MealRestControllerIntegrationTest extends RestControllerTest {
 		meals.add(Meal.of(mealId++, "Sea-food soup", false, true, false));
 		meals.add(Meal.of(mealId++, "milk chocolate and toasts", true, false, false));
 		meals.add(Meal.of(mealId++, "3 Hits: salami-eggs-cheese and mangu", true, false, false));
-		meals.forEach(m -> DBUtils.insert(jdbcTemplate, "meals", asArray(m)));
+		meals.forEach(m -> DBUtils.insert(jdbcTemplate, "meals", asArray("mirna", m)));
 		return meals;
 	}
 
-	private Object[] asArray(Meal meal) {
-		int mealFieldCount = 5;
+	private Object[] asArray(String username, Meal meal) {
+		int mealFieldCount = 6;
 		Object[] array = new Object[mealFieldCount];
 		array[0] = meal.getId();
-		array[1] = meal.getDescription();
-		array[2] = meal.isBreakfast();
-		array[3] = meal.isLunch();
-		array[4] = meal.isDinner();
+		array[1] = userId(username);
+		array[2] = meal.getDescription();
+		array[3] = meal.isBreakfast();
+		array[4] = meal.isLunch();
+		array[5] = meal.isDinner();
 		return array;
+	}
+
+	private long userId(String username) {
+		return jdbcTemplate.queryForObject("select user_id from users where user_name = ? ", Long.class, username);
 	}
 }

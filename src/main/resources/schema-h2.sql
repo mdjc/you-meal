@@ -1,12 +1,13 @@
-CREATE TABLE users (
-	user_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	user_name VARCHAR(35) NOT NULL UNIQUE,
-	user_email VARCHAR(60) NOT NULL,
-	user_password VARCHAR(60) NOT NULL
+create table users (
+	user_id bigint unsigned auto_increment primary key,
+	user_name varchar(35) not null unique,
+	user_email varchar(60) not null,
+	user_password varchar(60) not null
 );
 
 create table meals (
 	meal_id bigint unsigned auto_increment primary key,
+	user_id bigint unsigned references users(user_id),
 	description varchar(60) NOT NULL,
 	is_breakfast boolean,
 	is_lunch boolean,

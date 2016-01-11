@@ -13,12 +13,12 @@
 		
 		return service;
 			
-		function add(meal) {
-			return $http.post('/meals/', meal);
+		function add(username, meal) {
+			return $http.post('/users/' + username + '/meals/', meal);
 		}
 		
-		function getSuggestedMeal(category) {
-			return $http.get("/categories/" + category + "/meals/suggestion");
+		function getSuggestedMeal(username, category) {
+			return $http.get('/users/' + username + "/categories/" + category + "/meals/suggestion");
 		}
 	}
 })();

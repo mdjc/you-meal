@@ -3,16 +3,19 @@ package com.github.mdjc.youmeal.domain;
 import static com.github.mdjc.commons.args.Arguments.*;
 
 public class User implements Comparable<User> {
-	public static User NULL = new User("", "", "");
+	public static User NULL = new User("", "", "", MealRepository.NULL);
 
 	private final String name;
 	private final String email;
 	private final String password;
+	private final MealRepository mealRepository;
 
-	private User(String name, String email, String password) {
+	private User(String name, String email, String password, MealRepository mealRepository) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.mealRepository = mealRepository;
+		mealRepository.setUser(this);
 	}
 
 	public String getName() {
@@ -25,6 +28,10 @@ public class User implements Comparable<User> {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public MealRepository getMealRepository() {
+		return mealRepository;
 	}
 
 	@Override
@@ -58,11 +65,10 @@ public class User implements Comparable<User> {
 		return name;
 	}
 
-	public static User of(String name, String email, String password) {
+	public static User of(String name, String email, String password, MealRepository mealRepository) {
 		name = checkBlank(name);
 		email = checkBlank(email);
 		password = checkBlank(password);
-
-		return new User(name, email, password);
+		return new User(name, email, password, mealRepository);
 	}
 }

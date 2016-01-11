@@ -16,24 +16,33 @@ import org.springframework.jdbc.support.KeyHolder;
 import com.github.mdjc.youmeal.domain.Meal;
 import com.github.mdjc.youmeal.domain.MealCategory;
 import com.github.mdjc.youmeal.domain.MealRepository;
+import com.github.mdjc.youmeal.domain.User;
 
 public class SqlMealRepository implements MealRepository {
 	private final JdbcTemplate jdbcTemplate;
+	private User user;
 
 	public SqlMealRepository(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	@Override
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
 	public Meal add(Meal meal) {
 		PreparedStatementCreator prepStatementCreator = connnection -> {
 			PreparedStatement prepStatement = connnection.prepareStatement(
-					"insert into meals set description = ?, is_breakfast = ?, is_lunch = ?, is_dinner = ?",
+					"insert into meals set user_id = (select user_id from users where user_name = ?),"
+							+ " description = ?, is_breakfast = ?, is_lunch = ?, is_dinner = ?",
 					Statement.RETURN_GENERATED_KEYS);
-			prepStatement.setString(1, meal.getDescription());
-			prepStatement.setBoolean(2, meal.isBreakfast());
-			prepStatement.setBoolean(3, meal.isLunch());
-			prepStatement.setBoolean(4, meal.isDinner());
+			prepStatement.setString(1, user.getName());
+			prepStatement.setString(2, meal.getDescription());
+			prepStatement.setBoolean(3, meal.isBreakfast());
+			prepStatement.setBoolean(4, meal.isLunch());
+			prepStatement.setBoolean(5, meal.isDinner());
 			return prepStatement;
 		};
 
@@ -46,9 +55,11 @@ public class SqlMealRepository implements MealRepository {
 	@Override
 	public Meal getRandomMeal(MealCategory mealCategory) {
 		try {
-			String query = String.format("select * from meals where %s = true order by rand() limit 1",
+			String query = String.format(
+					"select * from meals where user_id = (select user_id from users where user_name = ?)"
+							+ " and %s = true order by rand() limit 1",
 					asField(mealCategory));
-			return jdbcTemplate.queryForObject(query, this::mapper);
+			return jdbcTemplate.queryForObject(query, this::mapper, user.getName());
 		} catch (EmptyResultDataAccessException e) {
 			return Meal.NULL;
 		}

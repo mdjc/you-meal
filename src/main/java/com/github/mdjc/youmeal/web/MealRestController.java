@@ -11,22 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.mdjc.youmeal.domain.Meal;
 import com.github.mdjc.youmeal.domain.MealCategory;
-import com.github.mdjc.youmeal.domain.MealRepository;
+import com.github.mdjc.youmeal.domain.User;
+import com.github.mdjc.youmeal.domain.UserRepository;
 
 @RestController
 public class MealRestController {
 	@Autowired
-	MealRepository repository;
+	UserRepository userRepository;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/meals")
+	@RequestMapping(method = RequestMethod.POST, value = "users/{username}/meals")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Meal add(@RequestBody Meal meal) {
-		return repository.add(meal);
+	public Meal add(@PathVariable String username, @RequestBody Meal meal) {
+		User user = userRepository.get(username);
+		return user.getMealRepository().add(meal);
 	}
 
-	@RequestMapping("/categories/{category}/meals/suggestion")
-	public Meal pickMeal(@PathVariable String category) {
+	@RequestMapping("users/{username}/categories/{category}/meals/suggestion")
+	public Meal pickMeal(@PathVariable String username, @PathVariable String category) {
 		MealCategory mealCategory = Enum.valueOf(MealCategory.class, category.toUpperCase());
-		return repository.getRandomMeal(mealCategory);
+		User user = userRepository.get(username);
+		return user.getMealRepository().getRandomMeal(mealCategory);
 	}
 }
