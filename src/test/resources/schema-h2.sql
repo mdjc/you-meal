@@ -8,7 +8,7 @@ create table users (
 create table meals (
 	meal_id bigint unsigned auto_increment primary key,
 	user_id bigint unsigned references users(user_id),
-	description varchar(60) NOT NULL,
+	description varchar(200) NOT NULL,
 	is_breakfast boolean,
 	is_lunch boolean,
 	is_dinner boolean
