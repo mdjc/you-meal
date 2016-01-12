@@ -7,6 +7,7 @@ var common;
 		alerts.ErrorSelector = ErrorSelector;
 		alerts.info = info;
 		alerts.error = error;
+		alerts.warning = warning;
 		
 		function info(message) {
 			return {type: 'info', message: message};
@@ -14,6 +15,10 @@ var common;
 		
 		function error(message) {
 			return {type: 'danger', message: message};
+		}
+		
+		function warning(message) {
+			return {type: 'warning', message: message};
 		}
 		
 		function ErrorSelector() {		
